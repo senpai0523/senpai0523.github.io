@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>【回放】WWE SD 第1251期</title>
+    <link href="https://senpai0523.github.io/back/favicon.png" rel="shortcut icon">
+    <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <style>
+        .video-js .vjs-tech {
+            margin: auto;
+            position: relative !important;
+        }
+        .main{
+            width: 960px;
+            margin: auto;
+            color:white;font-size:25px;
+        }
+        .lang{
+            font-size:17px;
+            text-align: center;
+        }
+        .contact{
+            font-size:12px;
+            text-align: center;
+            color: rgb(150, 150, 150);
+            text-decoration:none;
+        }
+      .wangpan{
+            font-size:15px;
+            text-align: center;
+            color: rgb(200, 200, 200);
+        }
+        .index{
+            font-size:17px;
+            text-align: center;
+            color: white;
+        }
+        body {
+            background-color: black;
+        }
+        img{
+            width: 500px;
+            height:500px; 
+        }
+    </style>
+</head>
+<body">
+    <div class="main">
+        <p>【全场回放】WWE SD 剧情周赛 第1251期 2023/08/12</p>
+        <div>
+            <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                data-setup='{}' style='width:100%;height:100%'>
+                <source id="source"
+                    src="https://ali-safety-video.acfun.cn/mediacloud/acfun/acfun_video/11edfa7274ff2001-2806dfb489838895fd853e6d8b2f0dd3-hls_720p_2.m3u8?pkey=ABAU707Fr4UQ3BjvXwubc2p2sSOWP7OUn_R6me1nHXdQ0DBzxdTZ7ea_i5MTz4lngkoT0GzGJNR-Di0kOgts7SoUzvJnWsT30y863rUhZ6OlnU9ks0bvFOJjU3bFX3irxyoDEjDO7wGnID6RhpVc5VeCgte-y4UaKM9xNszm2uTsFP6HJQMdXuwjnJkuE_-VdjHR8M-hWsC4Do9Od2zrmjRwQf7iWFSGgXwB90pjN753eFUxePO2nj40Unp4ukq2hzw&safety_id=AAKF7dZ1F7UkovXJHD_4TY3P"
+                    type="application/x-mpegURL">
+                </source>
+            </video>
+
+            <div class="lang">
+                <span>选择语言：</span>
+                <select class="select">
+                    <option value="1">中文字幕</option>
+                </select>
+                <p class="contact"><a  href="https://senpai0523.github.io/" class="index">回到首页</a></p>
+            </div>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+</body>
+<script>
+    let myVideo = null;
+    window.onload = function () {
+        myVideo = videojs('myVideo', {
+            controls: true,
+            bigPlayButton: true,
+            textTrackDisplay: false,
+            posterImage: false,
+            errorDisplay: false,
+        })
+        changeVideo(videoData.url1)
+    }
+    let videoData = {
+        url1: 'https://ali-safety-video.acfun.cn/mediacloud/acfun/acfun_video/11edfa7274ff2001-2806dfb489838895fd853e6d8b2f0dd3-hls_720p_2.m3u8?pkey=ABAU707Fr4UQ3BjvXwubc2p2sSOWP7OUn_R6me1nHXdQ0DBzxdTZ7ea_i5MTz4lngkoT0GzGJNR-Di0kOgts7SoUzvJnWsT30y863rUhZ6OlnU9ks0bvFOJjU3bFX3irxyoDEjDO7wGnID6RhpVc5VeCgte-y4UaKM9xNszm2uTsFP6HJQMdXuwjnJkuE_-VdjHR8M-hWsC4Do9Od2zrmjRwQf7iWFSGgXwB90pjN753eFUxePO2nj40Unp4ukq2hzw&safety_id=AAKF7dZ1F7UkovXJHD_4TY3P',
+    }
+
+    let changeVideo = function (vdoSrc) {
+        if (/\.m3u8$/.test(vdoSrc)) {
+            myVideo.src({
+                src: vdoSrc,
+                type: 'application/x-mpegURL'
+            })
+        } else {
+            myVideo.src(vdoSrc)
+        }
+        myVideo.load();
+        myVideo.play();
+    }
+    $('.select').on('change', function () {
+        let val = $(this).val();
+        switch (val) {
+            case '1': changeVideo(videoData.url1); break;
+            case '2': changeVideo(videoData.url2); break;
+            default: changeVideo(videoData.url3);
+        }
+    })
+</script>
+</html>
