@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>【回放】WWE SummerSlam 2023 夏季狂潮</title>
+    <link href="https://senpai0523.github.io/back/favicon.png" rel="shortcut icon">
+    <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <style>
+        .video-js .vjs-tech {
+            margin: auto;
+            position: relative !important;
+        }
+        .main{
+            width: 960px;
+            margin: auto;
+            color:white;font-size:25px;
+        }
+        .lang{
+            font-size:17px;
+            text-align: center;
+        }
+        .contact{
+            font-size:12px;
+            text-align: center;
+            color: rgb(150, 150, 150);
+            text-decoration:none;
+        }
+        .index{
+            font-size:17px;
+            text-align: center;
+            color: white;
+        }
+        body {
+            background-color: black;
+        }
+        img{
+            width: 500px;
+            height:500px; 
+        }
+    </style>
+</head>
+<body">
+    <div class="main">
+        <p>【全场回放】WWE SummerSlam 2023 夏季狂潮 2023/08/06</p>
+        <div>
+            <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                data-setup='{}' style='width:100%;height:100%'>
+                <source id="source"
+                    src="https://ali-safety-video.acfun.cn/mediacloud/acfun/acfun_video/a14662f4e58f26a1-df6204336b9ca6c3c6f579b445cea4a5-hls_1080p_2.m3u8?pkey=ABAc8xXwc6Wa7FX6HUbhALU_02sH3EKLEtOcK4IF4Y_hrWLPDqbQZ4tinHUW0vqaNQxUbc_AH1J4InutpvvcOy3LCg9hGOB_qM--the7_UTJPSXBXNVvrBbM3yHLkxrasaMh6yYXMwUnawlzxylS-Ej18Cas4PtZ4tQzVRQzqQooVI3mkMqQQRcwdKd80lnDyTb6BLnK459eoVlc7YGuYOP8Cyec0Tv5J2PNMRbCiU5XdxEzcjSagqtpbiUJnqq_5Kg&safety_id=AAKF7dZ1F7UkovXJHD_4TY3P"
+                    type="application/x-mpegURL">
+                </source>
+            </video>
+
+            <div class="lang">
+                <span>选择语言：</span>
+                <select class="select">
+                    <option value="1">字幕1080P</option>
+                    <option value="2">字幕720P</option>
+                </select>
+                <p class="contact"><a>无法播放联系微信：Senpaimm</a></p>
+                <p class="contact"><a  href="https://senpai0523.github.io/" class="index">回到首页</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let myVideo = null;
+    window.onload = function () {
+        myVideo = videojs('myVideo', {
+            controls: true,
+            bigPlayButton: true,
+            textTrackDisplay: false,
+            posterImage: false,
+            errorDisplay: false,
+        })
+        changeVideo(videoData.url1)
+    }
+    let videoData = {
+        url1: 'https://ali-safety-video.acfun.cn/mediacloud/acfun/acfun_video/a14662f4e58f26a1-df6204336b9ca6c3c6f579b445cea4a5-hls_1080p_2.m3u8?pkey=ABAc8xXwc6Wa7FX6HUbhALU_02sH3EKLEtOcK4IF4Y_hrWLPDqbQZ4tinHUW0vqaNQxUbc_AH1J4InutpvvcOy3LCg9hGOB_qM--the7_UTJPSXBXNVvrBbM3yHLkxrasaMh6yYXMwUnawlzxylS-Ej18Cas4PtZ4tQzVRQzqQooVI3mkMqQQRcwdKd80lnDyTb6BLnK459eoVlc7YGuYOP8Cyec0Tv5J2PNMRbCiU5XdxEzcjSagqtpbiUJnqq_5Kg&safety_id=AAKF7dZ1F7UkovXJHD_4TY3P',
+        url2: 'https://ali-safety-video.acfun.cn/mediacloud/acfun/acfun_video/a14662f4e58f26a1-2e338e0625c465c166155564daf41390-hls_720p_2.m3u8?pkey=ABAlZdaPYs_GAi4XYlxulfw2HnSHtwU4TVoPiE34dUGbvVPD-lLNWuzVKsAIpJx7YowvIvKrBdpD0wpvK3Wzv4u1sDHlIoWh_MD-so7W1rHpJXuWt5OLJvEMmpGFjcKggX-VFfkxLTah-Lz9oXOI80m0br7bEUBrJY4BVFpLYozk94c5rtR-ky7p89PXV78cEqUAM9U6LEi4dLmUJGLgWFaMkemEXJ6DNAdwSjPsY_ObEZknMjZtBl9G8n_toSDv0h8&safety_id=AAKF7dZ1F7UkovXJHD_4TY3P',
+    }
+
+    let changeVideo = function (vdoSrc) {
+        if (/\.m3u8$/.test(vdoSrc)) {
+            myVideo.src({
+                src: vdoSrc,
+                type: 'application/x-mpegURL'
+            })
+        } else {
+            myVideo.src(vdoSrc)
+        }
+        myVideo.load();
+        myVideo.play();
+    }
+    $('.select').on('change', function () {
+        let val = $(this).val();
+        switch (val) {
+            case '1': changeVideo(videoData.url1); break;
+            case '2': changeVideo(videoData.url2); break;
+            default: changeVideo(videoData.url3);
+        }
+    })
+</script>
+</html>
