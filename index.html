@@ -1,87 +1,122 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <title>🎀Senpai WWE</title>
     <link href="https://senpai0523.github.io/back/favicon.png" rel="shortcut icon">
+    <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/7.10.2/video.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
     <style>
-        body{
-            background-color: black;
-            color:white;font-size:32px;
+        .video-js .vjs-tech {
+            margin: auto;
+            position: relative !important;
         }
-        .tou{
+        .main{
+            width: 960px;
+            margin: auto;
+            color:white;font-size:25px;
+        }
+        .lang{
+            font-size:17px;
             text-align: center;
-            height: auto;
-            width: 100%;
         }
-        img{
-            width: 270px;
-            height:270px; 
+        .contact{
+            font-size:12px;
+            text-align: center;
+            color: rgb(150, 150, 150);
+            text-decoration:none;
         }
-        .Senpai{
+      .wangpan{
+            font-size:15px;
+            text-align: center;
+            color: rgb(200, 200, 200);
+        }
+        .index{
+            font-size:17px;
+            text-align: center;
             color: white;
-            text-decoration:none;
         }
-        .yugao{
-            color: rgb(221, 221, 221);
-            font-size: 23px;
-            text-decoration:none;
-            width: 100%;
-            background-color: rgb(70, 0, 70);
+        body {
+            background-color: black;
         }
-        .ppv{
-            color: rgb(170, 170, 170);
+        .b1{
+            font-size:27px;
             text-align: center;
-            height: 26px;
-            width: 100%;
-            background-color: rgba(255, 0, 255, 0.096);
-            font-size: 17px;
+            color: white;
         }
-        .raw{
-            color: rgb(170, 170, 170);
+        .b2{
+            font-size:17px;
             text-align: center;
-            height: 26px;
-            width: 100%;
-            background-color: rgba(255, 0, 0, 0.096);
-            font-size: 17px;
-        }
-        .sd{
-            color: rgb(170, 170, 170);
-            text-align: center;
-            height: 26px;
-            width: 100%;
-            background-color: rgba(0, 90, 255, 0.096);
-            font-size: 17px;
-        }
-        .nxt{
-            color: rgb(170, 170, 170);
-            text-align: center;
-            height: 26px;
-            width: 100%;
-            background-color: rgba(255, 255, 0, 0.096);
-            font-size: 17px;
+            color: rgb(230, 230, 230);
         }
     </style>
 </head>
-<body>
+<body">
+    <div class="main">
+        <p>【待直播】WWE Payback 2023 血债血偿 2023/09/03</p>
+        <div>
+            <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                data-setup='{}' style='width:100%;height:100%'>
+                <source id="source"
+                    src=""
+                    type="application/x-mpegURL">
+                </source>
+            </video>
+
+            <div class="lang">
+                <span>选择语言：</span>
+                <select class="select">
+                    <option value="1">1080P中文解说</option>
+                    <option value="2">1080P英文解说</option>
+                </select>
+            </div>
+        </div>
+    </div>
     <div align="center">
-        <a  href="https://senpai0523.github.io/back/Senpai0.png"target="_blank"><img src="https://senpai0523.github.io/back/Senpai0.png"></a>
-    </div>
-    <div>
-        <table class="tou" cellpadding="35" border="0">
-          <tr>  
-                <td colspan="3" class="yugao"><a  href="http://senpai0523.github.io/video/Payback2023.html"target="_blank" class="yugao">【预告】WWE Payback 2023 血债血偿 2023/09/03</a></td>
-            </tr>
-        </table>
-    </div>
-    <div>
-        <div class="sd"><a href="http://senpai0523.github.io/video/SD1252.html" target="_blank"class="sd"><p>WWE SmackDown 剧情周赛 第1252期 2023/08/19</p></a></div>
-        <div class="nxt"><a href="http://senpai0523.github.io/video/NXT694.html" target="_blank"class="nxt"><p>WWE NXT 剧情周赛 第694期 2023/08/16</p></a></div>
-        <div class="raw"><a href="http://senpai0523.github.io/video/RAW1577.html" target="_blank"class="raw"><p>WWE RAW 剧情周赛 第1577期 2023/08/15</p></a></div>
-        <div class="sd"><a href="http://senpai0523.github.io/video/SD1251.html" target="_blank"class="sd"><p>WWE SmackDown 剧情周赛 第1251期 2023/08/12</p></a></div>
-        <div class="nxt"><a href="http://senpai0523.github.io/video/NXT693.html" target="_blank"class="nxt"><p>WWE NXT 剧情周赛 第693期 2023/08/09</p></a></div>
-        <div class="raw"><a href="http://senpai0523.github.io/video/RAW1576.html" target="_blank"class="raw"><p>WWE RAW 剧情周赛 第1576期 2023/08/08</p></a></div>
-        <div class="ppv"><a href="http://senpai0523.github.io/video/SummerSlam2023.html" target="_blank"class="ppv"><p>WWE SummerSlam 2023 夏季狂潮 2023/08/06</p></a></div>
+        <img src="https://senpai0523.github.io/back/favicon0.png">
+        <div class="b1">历史PPV</div>
+        <div class="b2">统一提取码：0523</div>
+        <p class="wangpan">WWE SummerSlam 2023/08/06 夏季狂潮：<a href="https://pan.baidu.com/s/1cR4et4qjsxV_LHlzKQRT3w"target="_blank" class="wangpan">https://pan.baidu.com/s/1cR4et4qjsxV_LHlzKQRT3w</a></p>
     </div>
 </body>
+<script>
+    let myVideo = null;
+    window.onload = function () {
+        myVideo = videojs('myVideo', {
+            controls: true,
+            bigPlayButton: true,
+            textTrackDisplay: false,
+            posterImage: false,
+            errorDisplay: false,
+        })
+        changeVideo(videoData.url1)
+    }
+    let videoData = {
+        url1: '',
+        url2: '',
+    }
+
+    let changeVideo = function (vdoSrc) {
+        if (/\.m3u8$/.test(vdoSrc)) {
+            myVideo.src({
+                src: vdoSrc,
+                type: 'application/x-mpegURL'
+            })
+        } else {
+            myVideo.src(vdoSrc)
+        }
+        myVideo.load();
+        myVideo.play();
+    }
+    $('.select').on('change', function () {
+        let val = $(this).val();
+        switch (val) {
+            case '1': changeVideo(videoData.url1); break;
+            case '2': changeVideo(videoData.url2); break;
+            default: changeVideo(videoData.url3);
+        }
+    })
+</script>
 </html>
