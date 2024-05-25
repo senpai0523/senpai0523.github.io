@@ -4,36 +4,99 @@
     <meta charset="UTF-8">
     <title>🎀Senpai WWE</title>
     <link href="https://senpai0523.github.io/back/favicon.png" rel="shortcut icon">
+    <link href="//vjs.zencdn.net/8.10.0/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/8.10.0/video.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
     <style>
-        body{
-            background-color: black;
-            width: 100%;
+        .video-js .vjs-tech {
             margin: auto;
-            text-align: center;
+            position: relative !important;
+        }
+        .main{
+            width: 960px;
+            margin: auto;
             color:white;font-size:25px;
         }
-        p{
-        line-height:10;
-      }
-        a{
-            color:blue;
+        .lang{
+            font-size:17px;
+            text-align: center;
+        }
+        .wangpan{
+            line-height: 60px;
+            font-size:27px;
+            text-align: center;
+            color: rgb(0, 149, 255);
+        }
+        .music{
+            line-height: 50px;
+            font-size:21px;
+            text-align: center;
+            color: rgb(255, 213, 0);
+        }
+        body{
+            background-color: black;
         }
     </style>
 </head>
-<body>
-    <div>
+<body">
+    <div class="main">
         <p>【LIVE】WWE King and Queen of the Ring 2024/05/26 01:00 (UTC+8)</p>
-          
-                  
-           
-                <a href="https://link3.cc/acebop"target="_blank">P P V  Live line1</a> <br>
-      <br>
-                <a href="https://link3.cc/aceouo"target="_blank">P P V  Live line2</a> <br>
-      <br>
-                <a href="https://link3.cc/acelhx"target="_blank">P P V  Live line3</a> <br>
-           
-                  
-          
+        <div>
+            <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                data-setup='{}' style='width:100%;height:100%'>
+                <source id="source"
+                    src=""
+                    type="application/x-mpegURL">
+                </source>
+            </video>
+
+            <div class="lang">
+                <span>选择语言：</span>
+                <select class="select">
+                    <option value="1">1080P Chinese</option>
+                    <option value="2">1080P English</option>
+                </select>
+            </div>
+        </div>
     </div>
+<hr>
 </body>
+<script>
+    let myVideo = null;
+    window.onload = function () {
+        myVideo = videojs('myVideo', {
+            controls: true,
+            bigPlayButton: true,
+            textTrackDisplay: false,
+            posterImage: false,
+            errorDisplay: false,
+        })
+        changeVideo(videoData.url1)
+    }
+    let videoData = {
+        url1: 'https://cn-sdjn-cm-02-08.bilivideo.com/live-bvc/961349/live_23755234_bs_3437085/index.m3u8?expires=1716659686&len=0&oi=1973088808&pt=web&qn=10000&trid=1007369690840ccc4b349f8ccac0c468ec92&sigparams=cdn,expires,len,oi,pt,qn,trid&cdn=cn-gotcha01&sign=43274312d6947836a78d11f186700a39&sk=a488675aacf1c21fad7c993ee7c73350&flvsk=9b7cc76e8f3c5000705e088d2da04eae&p2p_type=1&sl=1&free_type=0&mid=385212573&sid=cn-sdjn-cm-02-08&chash=0&bmt=1&sche=ban&bvchls=1&score=11&pp=rtmp&source=onetier&trace=941&site=6e7a320d11cc6dc130a48576319be473&zoneid_l=151388163&sid_l=live_23755234_bs_3437085&order=1',
+        url2: 'https://cn-jssz-cm-02-31.bilivideo.com/live-bvc/902531/live_23413452_bs_8893260_bluray/index.m3u8?expires=1716659706&len=0&oi=1973088808&pt=web&qn=10000&trid=1007be3e8f6948944a598d5095c7bf201d3c&sigparams=cdn,expires,len,oi,pt,qn,trid&cdn=cn-gotcha01&sign=78ae59be639a63bd1de5c8a50b183d54&sk=e6d0886b02b09fc7eae73c9a94740c39&flvsk=13ed776a0ca222a516d62e27f0db34c5&p2p_type=1&sl=1&free_type=0&mid=385212573&sid=cn-jssz-cm-02-31&chash=1&bmt=1&sche=ban&bvchls=1&score=4&pp=rtmp&source=onetier&trace=149&site=8cd0003ca5b3e39e026cd521fe5ddf12&zoneid_l=151388163&sid_l=stream_name_cold&order=1',
+    }
+
+    let changeVideo = function (vdoSrc) {
+        if (/\.m3u8$/.test(vdoSrc)) {
+            myVideo.src({
+                src: vdoSrc,
+                type: 'application/x-mpegURL'
+            })
+        } else {
+            myVideo.src(vdoSrc)
+        }
+        myVideo.load();
+        myVideo.play();
+    }
+    $('.select').on('change', function () {
+        let val = $(this).val();
+        switch (val) {
+            case '1': changeVideo(videoData.url1); break;
+            case '2': changeVideo(videoData.url2); break;
+            default: changeVideo(videoData.url3);
+        }   <!--丨-->
+    })
+</script>
 </html>
