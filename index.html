@@ -2,73 +2,91 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>FLV直播播放器</title>
+    <title>WX Live 直播播放器</title>
     <style>
-        /* 基础播放器样式 */
+        /* 暗黑风格播放器 */
+        body {
+            background: #1a1a1a;
+            margin: 0;
+            padding: 20px;
+        }
         #player-container {
-            width: 800px;
-            margin: 20px auto;
-            background: #000;
+            max-width: 1280px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
         }
         #videoElement {
             width: 100%;
+            height: 720px;
+            background: #000;
         }
-        .alert {
-            color: #dc3545;
+        .status-bar {
             padding: 15px;
-            text-align: center;
+            background: #2d2d2d;
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
 <body>
-    <!-- 播放器容器 -->
     <div id="player-container">
         <video id="videoElement" controls></video>
-        <div id="errorMsg" class="alert"></div>
+        <div class="status-bar">
+            <span id="bitrateInfo">码率: 加载中...</span>
+            <span id="bufferInfo">缓冲区: 0s</span>
+            <span id="latencyInfo">延迟: -</span>
+        </div>
     </div>
 
-    <!-- 引入flv.js库 -->
     <script src="https://cdn.bootcdn.net/ajax/libs/flv.js/1.6.2/flv.min.js"></script>
-
+    
     <script>
-        // 检测浏览器兼容性
+        // 配置参数
+        const config = {
+            url: 'https://pull-s1.wxlivecdn.com/trtc_1400419933/live_2042775696672399608_orig.flv?cdntagname=orig&combuf=EqUzqMAl2%2BZu4AzGqNUK1tdPAK3feB57zLE6SaNX7ypa9NU%3D&expt=&extbuf=JMHcQzyorp8W1qJj3pupGFNniScx7qEZN0GbTTQazEVygnl4C%2BkNyH%2B3VfjjS%2F46bgtGHjAdPkHi8luqBaB4Ul9XgST8WiAO1BxqLFnShmwh3kmcFuuWn%2BBKRm%2F5&gid=0&openid=098c4e68a80a2031d145fe73cf89077c&q=0&sc=1503&sv=1&txSecret=e742ce0f2e03b9f5df4f276471c3f218&txTime=68082BDB&vcodec=1&wxns=1&wxtoken=a2d5cdc3d047611069c5940c9b31bb67',
+            type: 'flv',
+            isLive: true,
+            withCredentials: false
+        };
+
+        // 初始化播放器
         if (flvjs.isSupported()) {
             const videoElement = document.getElementById('videoElement');
-            
-            // 创建FLV播放器实例
-            const flvPlayer = flvjs.createPlayer({
-                type: 'flv',
-                isLive: true,  // 直播模式
-                url: 'https://pull-s1.wxlivecdn.com/trtc_1400419933/live_2042775696672399608_orig.flv?cdntagname=orig&combuf=EqUzqMAl2%2BZu4AzGqNUK1tdPAK3feB57zLE6SaNX7ypa9NU%3D&expt=&extbuf=JMHcQzyorp8W1qJj3pupGFNniScx7qEZN0GbTTQazEVygnl4C%2BkNyH%2B3VfjjS%2F46bgtGHjAdPkHi8luqBaB4Ul9XgST8WiAO1BxqLFnShmwh3kmcFuuWn%2BBKRm%2F5&gid=0&openid=098c4e68a80a2031d145fe73cf89077c&q=0&sc=1503&sv=1&txSecret=e742ce0f2e03b9f5df4f276471c3f218&txTime=68082BDB&vcodec=1&wxns=1&wxtoken=a2d5cdc3d047611069c5940c9b31bb67' // 替换为实际FLV地址
-            }, {
-                enableWorker: true,  // 启用多线程解码
-                autoCleanupSourceBuffer: true,  // 自动清理缓存
-                stashInitialSize: 512  // 初始缓冲区大小(KB)
+            const flvPlayer = flvjs.createPlayer(config, {
+                enableWorker: true,
+                enableStashBuffer: false,
+                autoCleanupSourceBuffer: true,
+                stashInitialSize: 1024
             });
 
-            // 绑定视频元素
+            // 绑定媒体元素
             flvPlayer.attachMediaElement(videoElement);
             
+            // 启动播放
+            flvPlayer.load();
+            flvPlayer.play();
+
+            // 实时状态监控
+            setInterval(() => {
+                document.getElementById('bitrateInfo').textContent = 
+                    `码率: ${(flvPlayer.currentSegment?.bitrate || 0).toFixed(2)} kbps`;
+                document.getElementById('bufferInfo').textContent = 
+                    `缓冲区: ${videoElement.buffered.length ? videoElement.buffered.end(0) - videoElement.currentTime : 0}s`;
+                document.getElementById('latencyInfo').textContent = 
+                    `延迟: ${flvPlayer.latency}ms`;
+            }, 1000);
+
             // 错误处理
             flvPlayer.on(flvjs.Events.ERROR, (errType, errDetail) => {
-                showError(`播放错误: ${errType} - ${errDetail}`);
+                console.error(`[FLV Error] ${errType}: ${errDetail}`);
+                videoElement.poster = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
             });
-
-            // 初始化加载
-            try {
-                flvPlayer.load();
-                flvPlayer.play();
-            } catch (e) {
-                showError('流媒体加载失败: ' + e.message);
-            }
         } else {
-            showError('当前浏览器不支持FLV播放');
-        }
-
-        // 显示错误信息
-        function showError(message) {
-            document.getElementById('errorMsg').innerHTML = message;
-            videoElement.style.display = 'none';
+            alert('当前浏览器不支持FLV直播播放');
         }
     </script>
 </body>
