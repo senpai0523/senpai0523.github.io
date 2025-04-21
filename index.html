@@ -1,117 +1,75 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>🎀Senpai WWE</title>
-    <link href="https://senpai0523.github.io/back/favicon.png" rel="shortcut icon">
-    <link href="//vjs.zencdn.net/8.16.1/video-js.min.css" rel="stylesheet">
-    <script src="//vjs.zencdn.net/8.16.1/video.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <title>FLV直播播放器</title>
     <style>
-        .video-js .vjs-tech {
-            margin: auto;
-            position: relative !important;
+        /* 基础播放器样式 */
+        #player-container {
+            width: 800px;
+            margin: 20px auto;
+            background: #000;
         }
-        .main{
-            width: 960px;
-            margin: auto;
-            color:white;font-size:25px;
+        #videoElement {
+            width: 100%;
         }
-        .lang{
-            font-size:17px;
-        }
-        .wangpan{
-            line-height: 60px;
-            font-size:27px;
-            text-align: center;
-            color: rgb(0, 149, 255);
-        }
-        .password{
-            color:white;
-        }
-        a{
-            color:blue;
-            text-align: center;
-        }
-        body{
-            background-color: black;
+        .alert {
+            color: #dc3545;
+            padding: 15px;
             text-align: center;
         }
     </style>
 </head>
-<body">
-    <div class="main">
-        <p>【LIVE】WWE Royal Rumble 2025/02/02 07:00 (GMT+8)</p>
-        <div>
-            <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
-                data-setup='{}' style='width:100%;height:100%'>
-                <source id="source"
-                    src=""
-                    type="application/x-mpegURL">
-                </source>
-            </video>
-
-            <div class="lang">
-                <span>Language：</span>
-                <select class="select">
-                    <option value="1">1080P Chinese</option>
-                    <option value="2">1080P English</option>
-                </select>
-            </div>
-        </div>
+<body>
+    <!-- 播放器容器 -->
+    <div id="player-container">
+        <video id="videoElement" controls></video>
+        <div id="errorMsg" class="alert"></div>
     </div>
-<hr>
-</div>
-      <br>
-                <a href="http://senpai.w1.luyouxia.net" target="_blank"><img class="zhichi" align="center" width="20px" src="https://senpai0523.github.io/back/favicon.png"> Home</a> <br>
-      <br>
-      <br>
-                <a href="https://link3.cc/aceljj" target="_blank">P P V  Live line4</a>  <span class="password">Password：0724</span> <br>
-      <br>
-                <a href="https://link3.cc/aceldl" target="_blank">P P V  Live line5</a>  <span class="password">Password：5126</span> <br>
-      <br>
-                <a href="https://watchwrestlingup.org" target="_blank">P P V  Live line6 (Mainland China Requires VPN)</a> <br>
-      <br>
-                <a href="https://watchwrestling.ae" target="_blank">P P V  Live line7 (Mainland China Requires VPN)</a> <br>
-      <br>
-                <a href="https://watchwrestlingin.com" target="_blank">P P V  Live line8 (Mainland China Requires VPN)</a> <br>
-</body>
-<script>
-    let myVideo = null;
-    window.onload = function () {
-        myVideo = videojs('myVideo', {
-            controls: true,
-            bigPlayButton: true,
-            textTrackDisplay: false,
-            posterImage: false,
-            errorDisplay: false,
-        })
-        changeVideo(videoData.url1)
-    }
-    let videoData = {
-        url1: '',
-        url2: '',
-    }
 
-    let changeVideo = function (vdoSrc) {
-        if (/\.m3u8$/.test(vdoSrc)) {
-            myVideo.src({
-                src: vdoSrc,
-                type: 'application/x-mpegURL'
-            })
+    <!-- 引入flv.js库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/flv.js/1.6.2/flv.min.js"></script>
+
+    <script>
+        // 检测浏览器兼容性
+        if (flvjs.isSupported()) {
+            const videoElement = document.getElementById('videoElement');
+            
+            // 创建FLV播放器实例
+            const flvPlayer = flvjs.createPlayer({
+                type: 'flv',
+                isLive: true,  // 直播模式
+                url: 'https://pull-s1.wxlivecdn.com/trtc_1400419933/live_2042775696672399608_orig.flv?cdntagname=orig&combuf=EqUzqMAl2%2BZu4AzGqNUK1tdPAK3feB57zLE6SaNX7ypa9NU%3D&expt=&extbuf=JMHcQzyorp8W1qJj3pupGFNniScx7qEZN0GbTTQazEVygnl4C%2BkNyH%2B3VfjjS%2F46bgtGHjAdPkHi8luqBaB4Ul9XgST8WiAO1BxqLFnShmwh3kmcFuuWn%2BBKRm%2F5&gid=0&openid=098c4e68a80a2031d145fe73cf89077c&q=0&sc=1503&sv=1&txSecret=e742ce0f2e03b9f5df4f276471c3f218&txTime=68082BDB&vcodec=1&wxns=1&wxtoken=a2d5cdc3d047611069c5940c9b31bb67' // 替换为实际FLV地址
+            }, {
+                enableWorker: true,  // 启用多线程解码
+                autoCleanupSourceBuffer: true,  // 自动清理缓存
+                stashInitialSize: 512  // 初始缓冲区大小(KB)
+            });
+
+            // 绑定视频元素
+            flvPlayer.attachMediaElement(videoElement);
+            
+            // 错误处理
+            flvPlayer.on(flvjs.Events.ERROR, (errType, errDetail) => {
+                showError(`播放错误: ${errType} - ${errDetail}`);
+            });
+
+            // 初始化加载
+            try {
+                flvPlayer.load();
+                flvPlayer.play();
+            } catch (e) {
+                showError('流媒体加载失败: ' + e.message);
+            }
         } else {
-            myVideo.src(vdoSrc)
+            showError('当前浏览器不支持FLV播放');
         }
-        myVideo.load();
-        myVideo.play();
-    }
-    $('.select').on('change', function () {
-        let val = $(this).val();
-        switch (val) {
-            case '1': changeVideo(videoData.url1); break;
-            case '2': changeVideo(videoData.url2); break;
-            default: changeVideo(videoData.url3);
-        }   <!--丨-->
-    })
-</script>
+
+        // 显示错误信息
+        function showError(message) {
+            document.getElementById('errorMsg').innerHTML = message;
+            videoElement.style.display = 'none';
+        }
+    </script>
+</body>
 </html>
