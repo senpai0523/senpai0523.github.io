@@ -1,93 +1,117 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en-us">
 <head>
     <meta charset="UTF-8">
-    <title>WX Live 直播播放器</title>
+    <title>🎀Senpai WWE</title>
+    <link href="https://senpai0523.github.io/back/favicon.png" rel="shortcut icon">
+    <link href="//vjs.zencdn.net/8.16.1/video-js.min.css" rel="stylesheet">
+    <script src="//vjs.zencdn.net/8.16.1/video.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
     <style>
-        /* 暗黑风格播放器 */
-        body {
-            background: #1a1a1a;
-            margin: 0;
-            padding: 20px;
+        .video-js .vjs-tech {
+            margin: auto;
+            position: relative !important;
         }
-        #player-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        .main{
+            width: 960px;
+            margin: auto;
+            color:white;font-size:25px;
         }
-        #videoElement {
-            width: 100%;
-            height: 720px;
-            background: #000;
+        .lang{
+            font-size:17px;
         }
-        .status-bar {
-            padding: 15px;
-            background: #2d2d2d;
-            color: #fff;
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: space-between;
+        .wangpan{
+            line-height: 60px;
+            font-size:27px;
+            text-align: center;
+            color: rgb(0, 149, 255);
+        }
+        .password{
+            color:white;
+        }
+        a{
+            color:blue;
+            text-align: center;
+        }
+        body{
+            background-color: black;
+            text-align: center;
         }
     </style>
 </head>
-<body>
-    <div id="player-container">
-        <video id="videoElement" controls></video>
-        <div class="status-bar">
-            <span id="bitrateInfo">码率: 加载中...</span>
-            <span id="bufferInfo">缓冲区: 0s</span>
-            <span id="latencyInfo">延迟: -</span>
+<body">
+    <div class="main">
+        <p>【LIVE】WWE Royal Rumble 2025/02/02 07:00 (GMT+8)</p>
+        <div>
+            <video id="myVideo" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
+                data-setup='{}' style='width:100%;height:100%'>
+                <source id="source"
+                    src=""
+                    type="application/x-mpegURL">
+                </source>
+            </video>
+
+            <div class="lang">
+                <span>Language：</span>
+                <select class="select">
+                    <option value="1">1080P Chinese</option>
+                    <option value="2">1080P English</option>
+                </select>
+            </div>
         </div>
     </div>
-
-    <script src="https://cdn.bootcdn.net/ajax/libs/flv.js/1.6.2/flv.min.js"></script>
-    
-    <script>
-        // 配置参数
-        const config = {
-            url: 'https://pull-s1.wxlivecdn.com/trtc_1400419933/live_2042775696672399608_orig.flv?cdntagname=orig&combuf=EqUzqMAl2%2BZu4AzGqNUK1tdPAK3feB57zLE6SaNX7ypa9NU%3D&expt=&extbuf=JMHcQzyorp8W1qJj3pupGFNniScx7qEZN0GbTTQazEVygnl4C%2BkNyH%2B3VfjjS%2F46bgtGHjAdPkHi8luqBaB4Ul9XgST8WiAO1BxqLFnShmwh3kmcFuuWn%2BBKRm%2F5&gid=0&openid=098c4e68a80a2031d145fe73cf89077c&q=0&sc=1503&sv=1&txSecret=e742ce0f2e03b9f5df4f276471c3f218&txTime=68082BDB&vcodec=1&wxns=1&wxtoken=a2d5cdc3d047611069c5940c9b31bb67',
-            type: 'flv',
-            isLive: true,
-            withCredentials: false
-        };
-
-        // 初始化播放器
-        if (flvjs.isSupported()) {
-            const videoElement = document.getElementById('videoElement');
-            const flvPlayer = flvjs.createPlayer(config, {
-                enableWorker: true,
-                enableStashBuffer: false,
-                autoCleanupSourceBuffer: true,
-                stashInitialSize: 1024
-            });
-
-            // 绑定媒体元素
-            flvPlayer.attachMediaElement(videoElement);
-            
-            // 启动播放
-            flvPlayer.load();
-            flvPlayer.play();
-
-            // 实时状态监控
-            setInterval(() => {
-                document.getElementById('bitrateInfo').textContent = 
-                    `码率: ${(flvPlayer.currentSegment?.bitrate || 0).toFixed(2)} kbps`;
-                document.getElementById('bufferInfo').textContent = 
-                    `缓冲区: ${videoElement.buffered.length ? videoElement.buffered.end(0) - videoElement.currentTime : 0}s`;
-                document.getElementById('latencyInfo').textContent = 
-                    `延迟: ${flvPlayer.latency}ms`;
-            }, 1000);
-
-            // 错误处理
-            flvPlayer.on(flvjs.Events.ERROR, (errType, errDetail) => {
-                console.error(`[FLV Error] ${errType}: ${errDetail}`);
-                videoElement.poster = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
-            });
-        } else {
-            alert('当前浏览器不支持FLV直播播放');
-        }
-    </script>
+<hr>
+</div>
+      <br>
+                <a href="http://senpai.w1.luyouxia.net" target="_blank"><img class="zhichi" align="center" width="20px" src="https://senpai0523.github.io/back/favicon.png"> Home</a> <br>
+      <br>
+      <br>
+                <a href="https://link3.cc/aceljj" target="_blank">P P V  Live line4</a>  <span class="password">Password：0724</span> <br>
+      <br>
+                <a href="https://link3.cc/aceldl" target="_blank">P P V  Live line5</a>  <span class="password">Password：5126</span> <br>
+      <br>
+                <a href="https://watchwrestlingup.org" target="_blank">P P V  Live line6 (Mainland China Requires VPN)</a> <br>
+      <br>
+                <a href="https://watchwrestling.ae" target="_blank">P P V  Live line7 (Mainland China Requires VPN)</a> <br>
+      <br>
+                <a href="https://watchwrestlingin.com" target="_blank">P P V  Live line8 (Mainland China Requires VPN)</a> <br>
 </body>
+<script>
+    let myVideo = null;
+    window.onload = function () {
+        myVideo = videojs('myVideo', {
+            controls: true,
+            bigPlayButton: true,
+            textTrackDisplay: false,
+            posterImage: false,
+            errorDisplay: false,
+        })
+        changeVideo(videoData.url1)
+    }
+    let videoData = {
+        url1: '',
+        url2: '',
+    }
+
+    let changeVideo = function (vdoSrc) {
+        if (/\.m3u8$/.test(vdoSrc)) {
+            myVideo.src({
+                src: vdoSrc,
+                type: 'application/x-mpegURL'
+            })
+        } else {
+            myVideo.src(vdoSrc)
+        }
+        myVideo.load();
+        myVideo.play();
+    }
+    $('.select').on('change', function () {
+        let val = $(this).val();
+        switch (val) {
+            case '1': changeVideo(videoData.url1); break;
+            case '2': changeVideo(videoData.url2); break;
+            default: changeVideo(videoData.url3);
+        }   <!--丨-->
+    })
+</script>
 </html>
